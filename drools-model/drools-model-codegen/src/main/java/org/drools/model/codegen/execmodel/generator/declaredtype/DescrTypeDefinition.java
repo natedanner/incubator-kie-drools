@@ -245,8 +245,7 @@ public class DescrTypeDefinition implements TypeDefinition {
 
         List<DescrAnnotationDefinition> parsedAnnotations = typeFieldDescr.getAnnotations().stream()
                 .map(this::createAnnotationDefinition)
-                .filter(Optional::isPresent)
-                .map(Optional::get)
+                .flatMap(Optional::stream)
                 .collect(toList());
 
         parsedAnnotations.stream().filter(a -> !a.isPosition()).forEach(a -> processDefinitions(typeField, a));

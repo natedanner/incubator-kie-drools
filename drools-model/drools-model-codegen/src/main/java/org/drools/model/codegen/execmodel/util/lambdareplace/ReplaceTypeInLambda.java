@@ -120,8 +120,7 @@ public class ReplaceTypeInLambda {
                                      .map(MethodCallExpr.class::cast)
                                      .filter(argMce -> argMce.getName().asString().equals("getPropertyIndex"))
                                      .map(MethodCallExpr::getScope)
-                                     .filter(Optional::isPresent)
-                                     .map(Optional::get)
+                                     .flatMap(Optional::stream)
                                      .filter(FieldAccessExpr.class::isInstance)
                                      .map(FieldAccessExpr.class::cast)
                                      .forEach(fieldAccessExpr -> {

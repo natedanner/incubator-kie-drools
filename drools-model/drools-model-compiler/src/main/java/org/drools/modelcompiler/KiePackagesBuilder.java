@@ -1160,7 +1160,7 @@ public class KiePackagesBuilder {
             }
         } else {
             List<AbstractConstraint> constraints = constraint.getChildren().stream().map( child -> createConstraint( ctx, pattern, child ) )
-                    .filter( Optional::isPresent ).map( Optional::get ).map( AbstractConstraint.class::cast ).collect( toList() );
+                    .flatMap(Optional::stream).map( AbstractConstraint.class::cast ).collect( toList() );
             return Optional.of( new CombinedConstraint( constraint.getType(), constraints ) );
         }
     }

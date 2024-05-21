@@ -135,8 +135,7 @@ public class PMMLCompilerImpl implements PMMLCompiler {
                                                                                    pmmlContext, fileName);
                     return getSourcesMapFromCommonDataAndTransformationDictionaryAndModel(compilationDTO);
                 })
-                .filter(Optional::isPresent)
-                .map(Optional::get)
+                .flatMap(Optional::stream)
                 .collect(Collectors.toList());
     }
 
@@ -161,8 +160,7 @@ public class PMMLCompilerImpl implements PMMLCompiler {
                                                                                    pmmlContext, fileName);
                     return getFromCommonDataAndTransformationDictionaryAndModelWithSources(compilationDTO);
                 })
-                .filter(Optional::isPresent)
-                .map(Optional::get)
+                .flatMap(Optional::stream)
                 .collect(Collectors.toList());
     }
 

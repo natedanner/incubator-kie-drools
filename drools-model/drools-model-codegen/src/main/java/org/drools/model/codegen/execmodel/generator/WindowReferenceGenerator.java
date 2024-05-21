@@ -152,8 +152,7 @@ public class WindowReferenceGenerator {
                         }
                     });
                 } )
-                .filter( Optional::isPresent )
-                .map( Optional::get )
+                .flatMap(Optional::stream)
                 .collect( toList() );
     }
 

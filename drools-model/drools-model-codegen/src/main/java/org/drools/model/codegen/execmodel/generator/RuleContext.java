@@ -599,8 +599,7 @@ public class RuleContext {
                     List<String> parametersType = method.getParameters().stream().map(Parameter::getType).map(Type::asString).collect(toList());
                     List<Class<?>> resolvedParameterTypes = parametersType.stream()
                             .map(this::resolveType)
-                            .filter(Optional::isPresent)
-                            .map(Optional::get)
+                            .flatMap(Optional::stream)
                             .collect(toList());
                     return returnType.map(t -> new FunctionType(t, resolvedParameterTypes));
                 });

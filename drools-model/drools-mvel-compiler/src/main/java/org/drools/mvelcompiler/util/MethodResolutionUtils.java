@@ -188,8 +188,7 @@ public final class MethodResolutionUtils {
     private static Class<?>[] parametersType(List<TypedExpression> arguments) {
         return arguments.stream()
                 .map(TypedExpression::getType)
-                .filter(Optional::isPresent)
-                .map(Optional::get)
+                .flatMap(Optional::stream)
                 .map(ClassUtils::classFromType)
                 .toArray(Class[]::new);
     }

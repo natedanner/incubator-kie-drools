@@ -164,8 +164,7 @@ public class ModelUtils {
         return Stream.of(getOpTypeFromTargets(model.getTargets(), targetFieldName),
                          getOpTypeFromMiningFields(model.getMiningSchema(), targetFieldName),
                          getOpTypeFromFields(fields, targetFieldName))
-                .filter(Optional::isPresent)
-                .map(Optional::get)
+                .flatMap(Optional::stream)
                 .findFirst()
                 .orElseThrow(() -> new KiePMMLInternalException(String.format("Failed to find OpType for field" +
                                                                                       " %s", targetFieldName)));

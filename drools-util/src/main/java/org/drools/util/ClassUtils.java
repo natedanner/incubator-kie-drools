@@ -409,8 +409,7 @@ public final class ClassUtils {
         List<Method> accessors = accessorPriorityMap.keySet()
                                                     .stream()
                                                     .map(methodName -> getMethod(clazz, methodName))
-                                                    .filter(Optional::isPresent)
-                                                    .map(Optional::get)
+                                                    .flatMap(Optional::stream)
                                                     .filter(method -> !(method.getName().startsWith("is") && !method.getReturnType().equals(boolean.class)))
                                                     .distinct()
                                                     .collect(Collectors.toList());

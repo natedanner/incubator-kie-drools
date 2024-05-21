@@ -100,8 +100,7 @@ public class DescrAnnotationDefinition implements AnnotationDefinition {
     private static void checkNonExistingKeys(Class<?> annotationClass, Map<String, Object> annotationValues) {
         List<String> allNonExistingKeys = annotationValues.keySet().stream()
                 .map(o -> getNonExistingValue(annotationClass, o))
-                .filter(Optional::isPresent)
-                .map(Optional::get)
+                .flatMap(Optional::stream)
                 .collect(Collectors.toList());
 
         if (!allNonExistingKeys.isEmpty()) {
